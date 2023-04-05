@@ -27,4 +27,15 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
+            cd erp_project 
+            cd erp-django-backend
+            git pull 
+            pip install -r requirement.txt
+            python3 manage.py makemigrations
+            python3 manage.py migrate
+            systemctl stop gunicorn.service
+            systemctl start gunicorn.service
+            systemctl stop nginx
+            systemctl start nginx
+            systemctl status nginx
 
